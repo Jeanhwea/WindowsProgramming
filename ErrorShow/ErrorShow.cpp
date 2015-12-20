@@ -2,34 +2,42 @@
 //
 
 #include "stdafx.h"
+#include <Strsafe.h>
 #include <windows.h>
 
-void error_show(void)
+void show_error(void)
 {
-    LPVOID lpMsgBuf;
-    HLOCAL hlocal = NULL;
+    HLOCAL lpmsg; // HLOCAL类型可以看出LPVOID
+    HLOCAL lpmsgbuf;
+    HLOCAL hlocal=NULL;
 
-    DWORD dwError = GetLastError();
-    DWORD system_locate = MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT);
+    DWORD dwerr = GetLastError();
+    DWORD dwlocate = MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT);
     
     BOOL fOk = FormatMessage(
         FORMAT_MESSAGE_FROM_SYSTEM |
         FORMAT_MESSAGE_IGNORE_INSERTS |
         FORMAT_MESSAGE_ALLOCATE_BUFFER,
-        NULL, dwError, system_locate, (PTSTR) &hlocal, 0, NULL);
+        NULL, dwerr, dwlocate, (PTSTR) &hlocal, 0, NULL);
 
-    lpMsgBuf = (LPVOID) LocalAlloc(LMEM_ZEROINIT,
-        lstrlen((LPCTSTR)hlocal) * sizeof(TCHAR));
-    MessageBox(NULL, (LPCTSTR)lpMsgBuf, TEXT("Error"), MB_OK);
-    printf("%s\n", lpMsgBuf);
+    if (fOk) {
+        SIZE_T smsg = (lstrlen((LPCTSTR)hlocal)+1) * sizeof(TCHAR);
+        lpmsg = (HLOCAL) LocalAlloc(LMEM_ZEROINIT, smsg);
+        StringCchPrintf((PTSTR)lpmsg, LocalSize(lpmsg), TEXT("%s"), hlocal);
+        MessageBox(NULL, (LPCTSTR)lpmsg, TEXT("Prompt"), MB_OK);
+        LocalFree(lpmsg);
+    }
 
-    LocalFree(lpMsgBuf);
-    ExitProcess(dwError);
+    ExitProcess(dwerr);
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    error_show();
+    // 故意设置一个系统错误
+    SetLastError(ERROR_FILE_NOT_FOUND);
+
+    show_error(); // 捕捉系统错误
+
     return 0;
 }
 
