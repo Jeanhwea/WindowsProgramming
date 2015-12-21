@@ -7,7 +7,7 @@
 
 void show_error(void)
 {
-    // HLOCAL类型可以看出LPVOID
+    // HLOCAL类型可以看成LPVOID
     HLOCAL hlocal=NULL;
     // 获取系统的最后一个错误
     DWORD dwerr = GetLastError();
@@ -42,3 +42,6 @@ int _tmain(int argc, _TCHAR* argv[])
     return 0;
 }
 
+/** 读书笔记：
+    1. 当一个程序面临崩溃时，我们需要调用GetLastError函数使得程序优先地告诉用户崩溃的原因。
+ */
