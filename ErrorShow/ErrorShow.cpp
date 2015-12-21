@@ -7,10 +7,9 @@
 
 void show_error(void)
 {
-    HLOCAL lpmsg; // HLOCAL类型可以看出LPVOID
-    HLOCAL lpmsgbuf;
+    // HLOCAL类型可以看出LPVOID
     HLOCAL hlocal=NULL;
-
+    // 获取系统的最后一个错误
     DWORD dwerr = GetLastError();
     DWORD dwlocate = MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT);
     
@@ -20,14 +19,16 @@ void show_error(void)
         FORMAT_MESSAGE_ALLOCATE_BUFFER,
         NULL, dwerr, dwlocate, (PTSTR) &hlocal, 0, NULL);
 
-    if (fOk) {
+
+    if (fOk) {// 如果错误消息获得成功,则使用对话框将消息显示出来
         SIZE_T smsg = (lstrlen((LPCTSTR)hlocal)+1) * sizeof(TCHAR);
-        lpmsg = (HLOCAL) LocalAlloc(LMEM_ZEROINIT, smsg);
+        HLOCAL lpmsg = (HLOCAL) LocalAlloc(LMEM_ZEROINIT, smsg);
         StringCchPrintf((PTSTR)lpmsg, LocalSize(lpmsg), TEXT("%s"), hlocal);
         MessageBox(NULL, (LPCTSTR)lpmsg, TEXT("Prompt"), MB_OK);
         LocalFree(lpmsg);
     }
 
+    // 以最后一个错误号退出进程
     ExitProcess(dwerr);
 }
 
