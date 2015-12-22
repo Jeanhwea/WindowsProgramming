@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include <Strsafe.h>
+#include <strsafe.h>
 #include <windows.h>
 
 void show_error(void)
