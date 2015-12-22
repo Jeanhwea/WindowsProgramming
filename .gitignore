@@ -32,8 +32,12 @@
 *.pdb
 *.sdf
 *.suo
+*.ncb
 *.aps
-RC*
+*.user
+*.netmodule
+*.dll
+*.ilk
 
 # ignored directorys
 # difference between * and **
