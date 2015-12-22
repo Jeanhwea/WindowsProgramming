@@ -69,9 +69,22 @@ BOOL str_reverse_a(PSTR pstr, DWORD max_len)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    WCHAR wc[128] = TEXT("这是一个中文的数组");
+    // TEXT是一个宏，相当于将这个转换： TEXT("字符串") -> L"字符串"
+    WCHAR wcstr[128] = TEXT("这是一个中文的数组");
+    CHAR cstr[128] = "This is a c-type string";
 
-    str_reverse_w(wc, wcsnlen_s(wc, 128));
+    // 调用unicode版本的字符串反转
+    str_reverse_w(wcstr, wcsnlen_s(wcstr, 128));
+
+    // 调用ANSI版本的字符串反转
+    str_reverse_a(cstr, strnlen_s(cstr, 128));
+
+
+    // unicode版本的字符串无法通过cout打印
+    // std::cout << wcstr << std::endl; // 错误
+
+    // ANSI版本的字符串可以打印
+    std::cout << cstr << std::endl; // 正确
 
     return 0;
 }
