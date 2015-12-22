@@ -32,6 +32,8 @@
 *.pdb
 *.sdf
 *.suo
+*.aps
+RC*
 
 # ignored directorys
 # difference between * and **
