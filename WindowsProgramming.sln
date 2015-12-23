@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CharString", "CharString\Ch
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KernelObject", "KernelObject\KernelObject.vcxproj", "{6427359D-39C3-4164-80B2-2A0BC1F353EC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KernelObject-Singleton", "KernelObject-Singleton\KernelObject-Singleton.vcxproj", "{2F516592-9C88-497C-8977-7FB61F7D4A85}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,10 +31,6 @@ Global
 		{6427359D-39C3-4164-80B2-2A0BC1F353EC}.Debug|Win32.Build.0 = Debug|Win32
 		{6427359D-39C3-4164-80B2-2A0BC1F353EC}.Release|Win32.ActiveCfg = Release|Win32
 		{6427359D-39C3-4164-80B2-2A0BC1F353EC}.Release|Win32.Build.0 = Release|Win32
-		{2F516592-9C88-497C-8977-7FB61F7D4A85}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2F516592-9C88-497C-8977-7FB61F7D4A85}.Debug|Win32.Build.0 = Debug|Win32
-		{2F516592-9C88-497C-8977-7FB61F7D4A85}.Release|Win32.ActiveCfg = Release|Win32
-		{2F516592-9C88-497C-8977-7FB61F7D4A85}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
