@@ -78,3 +78,4 @@ int _tmain(int argc, _TCHAR* argv[])
     2. 区分内核对象和用户对象的最简单方法是查看创建这个函数的签名。几乎所有的内核对象
        的创建函数需要我们在创建时给出安全属性信息的参数 -- SECURITY_ATTRIBUTES。
  */
+
