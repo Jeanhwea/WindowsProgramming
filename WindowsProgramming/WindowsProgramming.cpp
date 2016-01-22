@@ -14,6 +14,7 @@
 
 // 全局变量
 HWND gDlg = NULL;
+TCHAR msg[1024] = {};
 
 BOOL cbDlgInit(HWND hwnd, HWND hwnd_focus, LPARAM lpara)
 {
@@ -28,17 +29,21 @@ BOOL cbDlgInit(HWND hwnd, HWND hwnd_focus, LPARAM lpara)
 
 void cbDlgCmd(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
+
     switch (id) {
     case ID_EXIT:
         EndDialog(hwnd, id); // 结束窗口
         break;
     case IDC_EDIT_INPUT: {
-            TCHAR msg[255];
+            TCHAR line[255];
             int n;
-            Edit_GetText(GetDlgItem(gDlg, IDC_EDIT_INPUT), msg, 250);
-            n = _ttoi(msg);
-            wsprintf(msg, TEXT("输入文本框里的数字是 %d"), n);
-            Edit_SetText(GetDlgItem(gDlg, IDC_EDIT_OUTPUT), msg);
+            // Edit_GetText(GetDlgItem(gDlg, IDC_EDIT_INPUT), msg, 250);
+            // n = _ttoi(msg);
+            // Edit_SetText(GetDlgItem(gDlg, IDC_EDIT_OUTPUT), msg);
+            n = GetDlgItemInt(hwnd, IDC_EDIT_INPUT, NULL, FALSE);
+            StringCchPrintf((PTSTR)line, 250, TEXT("n=%d\r\n"), n);
+            StringCchCat(msg, 1024, line);
+            SetDlgItemText(gDlg, IDC_EDIT_OUTPUT, msg);
         }
         break;
     default:
@@ -84,3 +89,4 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     return 0;
 }
+
