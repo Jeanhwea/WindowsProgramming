@@ -60,12 +60,13 @@ INT_PTR WINAPI cdDlgProc(HWND hwnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
     case WM_INITDIALOG:
         return SetDlgMsgResult(hwnd, WM_INITDIALOG, 
             HANDLE_WM_INITDIALOG(hwnd, wPara, lPara, cbDlgInit));
-        break;
     case WM_COMMAND:
         // SetDlgMsgResult是消息分流器
         return SetDlgMsgResult(hwnd, WM_COMMAND, 
             HANDLE_WM_COMMAND(hwnd, wPara, lPara, cbDlgCmd));
-        break;
+    case WM_CLOSE:
+        PostQuitMessage(0);
+        return NULL;
     default:
         break;
     }
@@ -76,7 +77,7 @@ INT_PTR WINAPI cdDlgProc(HWND hwnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                        HINSTANCE hPrevInstance,
                        LPWSTR lpCmdLine,
-                       int nShowCmd )
+                       int nCmdShow )
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
