@@ -12,9 +12,9 @@
 int display_program_path(void)
 {
 #ifdef UNICODE
-    printf("程序执行的路径 %S\n", _wpgmptr);
+    printf("程序执行的路径 %S\n", _get_wpgmptr);
 #else
-    printf("程序执行的路径 %s\n", _pgmptr);
+    printf("程序执行的路径 %s\n", _get_pgmptr);
 #endif // UNICODE
     return 0;
 }
