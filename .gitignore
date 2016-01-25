@@ -50,3 +50,5 @@ Debug/*
 Release/*
 */Release/*
 
+ipch/*
+
