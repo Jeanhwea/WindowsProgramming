@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstWindow", "FirstWindow\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicWindow", "BasicWindow\BasicWindow.vcxproj", "{E012AAA9-CC54-427F-8DB7-13893B07C847}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenDialog", "OpenDialog\OpenDialog.vcxproj", "{B29D83FF-5D2C-40D7-A785-6C0BBDA2B19B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -49,6 +51,10 @@ Global
 		{E012AAA9-CC54-427F-8DB7-13893B07C847}.Debug|Win32.Build.0 = Debug|Win32
 		{E012AAA9-CC54-427F-8DB7-13893B07C847}.Release|Win32.ActiveCfg = Release|Win32
 		{E012AAA9-CC54-427F-8DB7-13893B07C847}.Release|Win32.Build.0 = Release|Win32
+		{B29D83FF-5D2C-40D7-A785-6C0BBDA2B19B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B29D83FF-5D2C-40D7-A785-6C0BBDA2B19B}.Debug|Win32.Build.0 = Debug|Win32
+		{B29D83FF-5D2C-40D7-A785-6C0BBDA2B19B}.Release|Win32.ActiveCfg = Release|Win32
+		{B29D83FF-5D2C-40D7-A785-6C0BBDA2B19B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
