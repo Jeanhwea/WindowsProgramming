@@ -30,6 +30,8 @@ void CFirstMFCDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CFirstMFCDlg, CDialogEx)
     ON_WM_PAINT()
     ON_WM_QUERYDRAGICON()
+    ON_BN_CLICKED(IDOK, &CFirstMFCDlg::OnBnClickedOk)
+    ON_BN_CLICKED(IDCANCEL, &CFirstMFCDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -85,3 +87,20 @@ HCURSOR CFirstMFCDlg::OnQueryDragIcon()
     return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CFirstMFCDlg::OnBnClickedOk()
+{
+    // TODO: 在此添加控件通知处理程序代码
+    CDialogEx::OnOK();
+    CString msg;
+    GetDlgItemText(IDC_EDIT1, msg);
+    MessageBox(msg, TEXT("tilte"), NULL);
+}
+
+
+void CFirstMFCDlg::OnBnClickedCancel()
+{
+    // TODO: 在此添加控件通知处理程序代码
+    CDialogEx::OnCancel();
+}
