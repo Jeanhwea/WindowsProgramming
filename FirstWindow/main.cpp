@@ -3,6 +3,10 @@
 LRESULT CALLBACK cbWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg) {
+    case WM_CLOSE:
+        DestroyWindow(hwnd);
+        return 0;
+
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
@@ -23,7 +27,7 @@ LRESULT CALLBACK cbWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nShowCmd)
 {
     // Register the window class.
     const wchar_t CLASS_NAME[]  = TEXT("Jeanhwea's First Window");
@@ -34,9 +38,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     WNDCLASS wc = { };
 
+    wc.style         = CS_HREDRAW | CS_VREDRAW;
     wc.lpfnWndProc   = cbWindowProc;
     wc.hInstance     = hInstance;
     wc.lpszClassName = CLASS_NAME;
+    wc.hIcon         = ::LoadIcon(NULL, IDI_QUESTION);
+    wc.hbrBackground = (HBRUSH) ::GetStockObject(BLACK_BRUSH);
+    wc.hCursor       = (HCURSOR) ::LoadCursor(NULL, IDC_ARROW);
 
     RegisterClass(&wc);
 
@@ -61,7 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
         return 0;
     }
 
-    ShowWindow(hwnd, nCmdShow);
+    ShowWindow(hwnd, nShowCmd);
 
 
     // Run the message loop.

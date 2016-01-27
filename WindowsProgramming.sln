@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Direct2DCircle", "Direct2DC
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FirstMFCDlg", "FirstMFCDlg\FirstMFCDlg.vcxproj", "{3E7A4A93-BEEA-44B0-8BCC-12CEE8D25E63}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QWinApp", "QWinApp\QWinApp.vcxproj", "{BD1E439E-92C3-49D8-A558-C74C6D166DD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -67,6 +69,10 @@ Global
 		{3E7A4A93-BEEA-44B0-8BCC-12CEE8D25E63}.Debug|Win32.Build.0 = Debug|Win32
 		{3E7A4A93-BEEA-44B0-8BCC-12CEE8D25E63}.Release|Win32.ActiveCfg = Release|Win32
 		{3E7A4A93-BEEA-44B0-8BCC-12CEE8D25E63}.Release|Win32.Build.0 = Release|Win32
+		{BD1E439E-92C3-49D8-A558-C74C6D166DD3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD1E439E-92C3-49D8-A558-C74C6D166DD3}.Debug|Win32.Build.0 = Debug|Win32
+		{BD1E439E-92C3-49D8-A558-C74C6D166DD3}.Release|Win32.ActiveCfg = Release|Win32
+		{BD1E439E-92C3-49D8-A558-C74C6D166DD3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
