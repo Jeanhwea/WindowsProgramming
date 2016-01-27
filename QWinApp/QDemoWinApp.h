@@ -7,8 +7,6 @@ public:
     QDemoWinApp(void);
     ~QDemoWinApp(void);
 
-private:
-
 public:
     virtual BOOL InitInstance();
     virtual BOOL ExitInstance();

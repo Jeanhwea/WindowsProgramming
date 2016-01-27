@@ -7,11 +7,11 @@ public:
     QWnd(void);
     ~QWnd(void);
 
-
 public:
     BOOL ShowWindow(int nShowCmd);
     BOOL UpdateWindow();
     BOOL DestroyWindow();
+    virtual LRESULT WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam); 
 
     virtual BOOL CreateEx(
         DWORD     dwExStyle,
@@ -31,12 +31,11 @@ private:
     virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
     static LRESULT CALLBACK cbWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+// message handle
 public:
-    virtual LRESULT WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam); 
-
-    // message handle
-    virtual LRESULT OnClose(WPARAM wParam, LPARAM lParam);
-    virtual LRESULT OnDestroy(WPARAM wParam, LPARAM lParam);
+    virtual LRESULT OnClose(WPARAM wParam, LPARAM lParam) = 0;
+    virtual LRESULT OnDestroy(WPARAM wParam, LPARAM lParam) = 0;
+    virtual LRESULT OnCreate(WPARAM wParam, LPARAM lParam) = 0;
 
 public:
     HWND m_hWnd;

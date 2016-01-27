@@ -11,12 +11,16 @@ QWnd::~QWnd(void)
 {
 }
 
+// 伪窗口处理回调函数
 LRESULT CALLBACK QWnd::cbWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    QWnd * pWnd = NULL;
+
+    // 补充处理CreateWindowEx函数调用过程中可能遗漏的消息
     if (uMsg == WM_CREATE || uMsg == WM_NCCREATE) {
-        LPCREATESTRUCT pCs = (LPCREATESTRUCT) lParam;
-        if (pCs) {
-            QWnd * pWnd = (QWnd *) pCs->lpCreateParams;
+        LPCREATESTRUCT lpcs = (LPCREATESTRUCT) lParam;
+        if (lpcs) {
+            pWnd = (QWnd *) lpcs->lpCreateParams;
             if (pWnd) {
                 pWnd->m_hWnd = hwnd;
                 return pWnd->WinProc(uMsg, wParam, lParam);
@@ -24,22 +28,28 @@ LRESULT CALLBACK QWnd::cbWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         }
     }
 
-    QWnd * pWnd = (QWnd *) GetWindowLong(hwnd, GWL_USERDATA);
+    pWnd = (QWnd *) GetWindowLong(hwnd, GWL_USERDATA);
     if (pWnd) {
         return pWnd->WinProc(uMsg, wParam, lParam);
     }
 
     return ::DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
+
+// 真正的回调成员函数
 LRESULT QWnd::WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg) {
+    case WM_CREATE:
+        return OnCreate(wParam, lParam);
+        break;
+
     case WM_CLOSE:
-        OnClose(wParam, lParam);
+        return OnClose(wParam, lParam);
         break;
 
     case WM_DESTROY:
-        OnDestroy(wParam, lParam);
+        return OnDestroy(wParam, lParam);
         break;
 
     default:
@@ -49,6 +59,7 @@ LRESULT QWnd::WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam)
     return ::DefWindowProc(m_hWnd, uMsg, wParam, lParam);
 }
 
+// 窗口创建之前调用，用于修改窗口创建的一些参数
 BOOL QWnd::PreCreateWindow(CREATESTRUCT& cs)
 {
     WNDCLASSEX wcex;
@@ -117,7 +128,7 @@ BOOL QWnd::CreateEx(
     }
 
     HWND hwnd = ::CreateWindowEx(cs.dwExStyle, cs.lpszClass, cs.lpszName, cs.style, cs.x, cs.y,
-        cs.cx, cs.cy , cs.hwndParent, cs.hMenu, cs.hInstance, cs.lpCreateParams);
+        cs.cx, cs.cy , cs.hwndParent, cs.hMenu, cs.hInstance, this);
 
     if (hwnd == NULL) {
         return FALSE;
@@ -126,6 +137,13 @@ BOOL QWnd::CreateEx(
 
     // 将m_hWnd关联到与this关联的用户空间
     ::SetWindowLong(m_hWnd, GWL_USERDATA, (LONG)this);
+
+    // 如果默认的消息处理函数不是当前类的消息处理函数，则替换
+    // m_lpfnOldWinProc = (WNDPROC) ::GetWindowLong(m_hWnd, GWL_WNDPROC);
+    // if (m_lpfnOldWinProc != QWnd::cbWinProc) {
+        // 子类化
+        // ::SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)QWnd::cbWinProc);
+    // }
 
     return TRUE;
 }
@@ -146,16 +164,5 @@ BOOL QWnd::DestroyWindow()
 {
     assert(m_hWnd);
     return ::DestroyWindow(m_hWnd);
-}
-
-// message handler
-LRESULT QWnd::OnClose(WPARAM wParam, LPARAM lParam)
-{
-    return ::DefWindowProc(m_hWnd, WM_CLOSE, wParam, lParam);
-}
-
-LRESULT QWnd::OnDestroy(WPARAM wParam, LPARAM lParam)
-{
-    return ::DefWindowProc(m_hWnd, WM_DESTROY, wParam, lParam);
 }
 
