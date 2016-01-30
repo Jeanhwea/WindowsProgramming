@@ -8,11 +8,21 @@ public:
     ~QWnd(void);
 
 public:
-    BOOL ShowWindow(int nShowCmd);
-    BOOL UpdateWindow();
-    BOOL DestroyWindow();
-    virtual LRESULT WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam); 
+    HWND m_hWnd;
 
+
+private:
+    virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+    static LRESULT CALLBACK cbWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+// message handle
+public:
+    virtual LRESULT OnClose(WPARAM wParam, LPARAM lParam) = 0;
+    virtual LRESULT OnDestroy(WPARAM wParam, LPARAM lParam) = 0;
+    virtual LRESULT OnCreate(WPARAM wParam, LPARAM lParam) = 0;
+    virtual LRESULT OnPaint(WPARAM wParam, LPARAM lParam) = 0;
+
+public:
     virtual BOOL CreateEx(
         DWORD     dwExStyle,
         LPCTSTR   lpClassName,
@@ -26,18 +36,11 @@ public:
         HMENU     hMenu = NULL,
         LPVOID    lpParam = NULL
     );
-
-private:
-    virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-    static LRESULT CALLBACK cbWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-// message handle
-public:
-    virtual LRESULT OnClose(WPARAM wParam, LPARAM lParam) = 0;
-    virtual LRESULT OnDestroy(WPARAM wParam, LPARAM lParam) = 0;
-    virtual LRESULT OnCreate(WPARAM wParam, LPARAM lParam) = 0;
-
-public:
-    HWND m_hWnd;
+    virtual LRESULT WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam); 
+    BOOL ShowWindow(int nShowCmd);
+    BOOL UpdateWindow();
+    BOOL DestroyWindow();
+    HDC BeginPaint(PAINTSTRUCT *lpPaint);
+    BOOL EndPaint(PAINTSTRUCT * lpPaint);
 };
 

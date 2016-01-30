@@ -52,6 +52,10 @@ LRESULT QWnd::WinProc(UINT uMsg, WPARAM wParam, LPARAM lParam)
         return OnDestroy(wParam, lParam);
         break;
 
+    case WM_PAINT:
+        return OnPaint(wParam, lParam);
+        break;
+
     default:
         break;
     }
@@ -78,8 +82,8 @@ BOOL QWnd::PreCreateWindow(CREATESTRUCT& cs)
     wcex.cbWndExtra    = 0;
     wcex.hInstance     = cs.hInstance;
     wcex.hIcon         = ::LoadIcon(NULL, IDI_APPLICATION);
-    wcex.hIconSm       = ::LoadIcon(NULL, IDI_APPLICATION);
-    wcex.hbrBackground = (HBRUSH) ::GetStockObject(GRAY_BRUSH);
+    wcex.hIconSm       = ::LoadIcon(NULL, IDI_QUESTION);
+    wcex.hbrBackground = (HBRUSH) ::GetStockObject(WHITE_BRUSH);
     wcex.hCursor       = (HCURSOR) ::LoadCursor(NULL, IDC_ARROW);
     wcex.lpszMenuName  = NULL;
     wcex.lpszClassName = cs.lpszClass;
@@ -166,3 +170,17 @@ BOOL QWnd::DestroyWindow()
     return ::DestroyWindow(m_hWnd);
 }
 
+
+
+HDC QWnd::BeginPaint(PAINTSTRUCT * lpPaint)
+{
+    assert(m_hWnd);
+    return ::BeginPaint(m_hWnd, lpPaint);
+}
+
+
+BOOL QWnd::EndPaint(PAINTSTRUCT * lpPaint)
+{
+    assert(m_hWnd);
+    return ::EndPaint(m_hWnd, lpPaint);
+}

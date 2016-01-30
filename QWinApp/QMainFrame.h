@@ -13,6 +13,7 @@ public:
     virtual LRESULT OnClose(WPARAM wParam, LPARAM lParam);
     virtual LRESULT OnDestroy(WPARAM wParam, LPARAM lParam);
     virtual LRESULT OnCreate(WPARAM wParam, LPARAM lParam);
+    virtual LRESULT OnPaint(WPARAM wParam, LPARAM lParam);
 
 };
 
