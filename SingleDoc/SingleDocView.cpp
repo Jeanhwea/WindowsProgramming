@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CSingleDocView, CView)
 
 BEGIN_MESSAGE_MAP(CSingleDocView, CView)
+    ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // CSingleDocView 构造/析构
@@ -79,3 +80,12 @@ CSingleDocDoc* CSingleDocView::GetDocument() const // 非调试版本是内联的
 
 
 // CSingleDocView 消息处理程序
+
+
+int CSingleDocView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CView::OnCreate(lpCreateStruct) == -1)
+        return -1;
+
+    return 0;
+}
